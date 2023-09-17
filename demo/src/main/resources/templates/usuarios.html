@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" type="text/css" href="/css/usuarios.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <title>Lista de Usuários</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
@@ -10,15 +13,47 @@
 <table>
     <thead>
     <tr>
-        <th>Nome</th>
+        <th >Nome</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="usuario : ${usuarios}">
-        <td th:text="${usuario.nome}"></td>
+        <td class="nome-usuario" th:text="${usuario.nome}"></td>
+        <td>
+            <button type="button" class="editar-link">
+                <span class="fas fa-edit"></span>
+            </button>
+            <button type="button" class="deletar-link" onclick="deletarUsuario(this)">
+                <span class="fas fa-trash-alt"></span>
+            </button>
+        </td>
     </tr>
     </tbody>
 </table>
 <a href="/usuario">Adicionar outro usuário</a>
+
+<script>
+function deletarUsuario(button) {
+    var nome = button.closest('tr').querySelector('.nome-usuario').textContent;
+    console.log("nome: " + nome);
+    if (confirm('Tem certeza de que deseja excluir ' + nome + '?')) {
+        var form = document.createElement("form");
+        form.method = "DELETE"; // Usando POST para fins de simulação
+        form.action = "/deletar/${nome}}";
+        form.style.display = "none";
+
+        var methodField = document.createElement("input");
+        methodField.type = "hidden";
+        methodField.name = "_method";
+        methodField.value = "DELETE";
+
+        form.appendChild(methodField);
+        document.body.appendChild(form);
+
+        form.submit();
+        alert('Usuário ' + nome + ' excluído com sucesso!');
+    }
+}
+</script>
 </body>
 </html>

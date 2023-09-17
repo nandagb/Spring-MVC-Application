@@ -29,9 +29,7 @@ public class UsuarioRepository {
 
         return null;
     }
-    public static Usuario removeUsuario(String nome) {
-        Usuario usuario = new Usuario();
-        usuario.setNome(nome);
+    public static Usuario removeUsuario(Usuario usuario) {
         usuarios.remove(usuario);
         return usuario;
     }

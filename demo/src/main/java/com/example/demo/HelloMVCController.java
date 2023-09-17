@@ -4,10 +4,7 @@ import com.example.demo.domain.Usuario;
 import com.example.demo.repositories.UsuarioRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +31,17 @@ public class HelloMVCController {
         return this.listarUsuarios(model);
 //        return "usuarios";
     }
+
+    @DeleteMapping("/deletar/{nome}")
+    public String editarUsuario(@PathVariable String nome, Model model) {
+        Usuario usuario = new Usuario();
+        usuario.setNome(nome);
+        model.addAttribute("usuario", usuario);
+        UsuarioRepository.removeUsuario(usuario);
+        return this.listarUsuarios(model);
+//        return "editar-usuario"; // Nome da página de edição
+    }
+
+
 
 }

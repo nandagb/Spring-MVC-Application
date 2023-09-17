@@ -33,10 +33,10 @@ public class UsuarioController {
         return UsuarioRepository.editUsuario(nome_velho, nome_novo);
     }
 
-    @DeleteMapping("/usuarios")
-    @CrossOrigin(origins = "*") // Permite todas as origens
-    public Usuario removeUsuario(@RequestParam("nome") String nome) {
-        return UsuarioRepository.removeUsuario(nome);
-    }
+//    @DeleteMapping("/usuarios")
+//    @CrossOrigin(origins = "*") // Permite todas as origens
+//    public Usuario removeUsuario(@RequestParam("nome") String nome) {
+//        return UsuarioRepository.removeUsuario(nome);
+//    }
 
 }

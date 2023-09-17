@@ -22,8 +22,7 @@ table {
 
 /* Estilizando cabeçalho da tabela */
 thead {
-    background-color: #007bff;
-    color: #fff;
+    color: #007bff;
 }
 
 /* Estilizando células da tabela */
@@ -31,6 +30,7 @@ td, th {
     padding: 10px;
     text-align: left;
 }
+
 
 /* Estilizando links */
 a {

@@ -1,0 +1,34 @@
+/* Estilizando o corpo da página */
+body {
+    font-family: 'Roboto', sans-serif; /* Usando a fonte Roboto sugerida anteriormente */
+    background-color: #f5f5f5;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilizando o título h1 */
+h1 {
+    color: #007bff; /* Cor azul */
+}
+
+/* Estilizando o parágrafo */
+p {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+/* Estilizando o link "Submit another message" */
+a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-top: 20px;
+}
+
+/* Estilizando o link quando o mouse passa por cima */
+a:hover {
+    background-color: #0056b3; /* Azul mais escuro */
+}

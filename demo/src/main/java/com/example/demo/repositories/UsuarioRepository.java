@@ -34,4 +34,13 @@ public class UsuarioRepository {
         return usuario;
     }
 
+    public static Usuario getByName(String name) {
+        for( Usuario usuario: usuarios){
+            if(usuario.getNome().equals(name)){
+                return usuario;
+            }
+        }
+        return null;
+    }
+
 }

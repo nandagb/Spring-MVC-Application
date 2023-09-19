@@ -20,7 +20,10 @@
     <tr th:each="usuario : ${usuarios}">
         <td class="nome-usuario" th:text="${usuario.nome}"></td>
         <td>
-            <button type="button" class="editar-link">
+            <button type="button" class="salvar-link" onclick="salvarUsuario(this)" style="display: none;">
+                <span class="fas fa-check"></span>
+            </button>
+            <button type="button" class="editar-link" onclick="editarUsuario(this)">
                 <span class="fas fa-edit"></span>
             </button>
             <button type="button" class="deletar-link" onclick="deletarUsuario(this)">
@@ -53,6 +56,62 @@ function deletarUsuario(button) {
         });
     }
 }
+
+function editarUsuario(button) {
+    var row = button.closest('tr');
+    var nomeAntigo = row.querySelector('.nome-usuario').textContent;
+
+    var novoNomeInput = document.createElement('input');
+    novoNomeInput.type = 'text';
+    novoNomeInput.value = nomeAntigo;
+    novoNomeInput.classList.add('novo-nome');
+
+    var salvarButton = document.createElement('button');
+    salvarButton.type = 'button';
+    salvarButton.classList.add('salvar-link');
+    salvarButton.innerHTML = '<span class="fas fa-check"></span>';
+    salvarButton.onclick = function() {
+        salvarUsuario(row);
+    };
+
+    novoNomeInput.setAttribute('data-nome-antigo', nomeAntigo);
+
+    var td = row.querySelector('td');
+    td.innerHTML = '';
+    td.appendChild(novoNomeInput);
+    td.appendChild(salvarButton);
+}
+
+function salvarUsuario(row) {
+    var novoNomeInput = row.querySelector('.novo-nome');
+    var nome = novoNomeInput.value;
+
+    var nomeAntigo = novoNomeInput.getAttribute('data-nome-antigo');
+    var requestBody = {
+        novoNome: nome
+    };
+
+    console.log("nome antigo:" + nomeAntigo);
+    fetch(`/editar/${nomeAntigo}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Nome do usuário atualizado com sucesso!');
+                window.location.href = '/usuarios';
+            } else {
+                alert('Erro ao atualizar o usuário ' + nome);
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao atualizar o usuário: ' + error);
+        });
+}
+
 </script>
 </body>
 </html>

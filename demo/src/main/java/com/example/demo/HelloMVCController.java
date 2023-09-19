@@ -2,11 +2,13 @@ package com.example.demo;
 
 import com.example.demo.domain.Usuario;
 import com.example.demo.repositories.UsuarioRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HelloMVCController {
@@ -39,8 +41,15 @@ public class HelloMVCController {
         UsuarioRepository.removeUsuario(usuario);
         List<Usuario> usuarios = UsuarioRepository.getUsuarios();
         model.addAttribute("usuarios", usuarios);
-//        return this.listarUsuarios(model);
         return "usuarios"; // Nome da página de edição
+    }
+
+    @PutMapping("/editar/{nomeAntigo}")
+    public String editarUsuario(@PathVariable String nomeAntigo, @RequestBody Map<String, String> requestBody) {
+        String novoNome = requestBody.get("novoNome");
+        UsuarioRepository.editUsuario(nomeAntigo, novoNome);
+
+        return "usuarios";
     }
 
 

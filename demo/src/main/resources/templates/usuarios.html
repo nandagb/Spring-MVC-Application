@@ -37,21 +37,20 @@ function deletarUsuario(button) {
     var nome = button.closest('tr').querySelector('.nome-usuario').textContent;
     console.log("nome: " + nome);
     if (confirm('Tem certeza de que deseja excluir ' + nome + '?')) {
-        var form = document.createElement("form");
-        form.method = "DELETE"; // Usando POST para fins de simulação
-        form.action = "/deletar/${nome}}";
-        form.style.display = "none";
-
-        var methodField = document.createElement("input");
-        methodField.type = "hidden";
-        methodField.name = "_method";
-        methodField.value = "DELETE";
-
-        form.appendChild(methodField);
-        document.body.appendChild(form);
-
-        form.submit();
-        alert('Usuário ' + nome + ' excluído com sucesso!');
+        fetch(`/deletar/${nome}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Usuário ' + nome + ' excluído com sucesso!');
+                window.location.href = '/usuarios';
+            } else {
+                alert('Erro ao excluir o usuário ' + nome);
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao excluir o usuário: ' + error);
+        });
     }
 }
 </script>

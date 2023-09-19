@@ -29,17 +29,18 @@ public class HelloMVCController {
         model.addAttribute("usuario", usuario);
         UsuarioRepository.addUsuario(usuario);
         return this.listarUsuarios(model);
-//        return "usuarios";
     }
 
     @DeleteMapping("/deletar/{nome}")
-    public String editarUsuario(@PathVariable String nome, Model model) {
+    public String deletarUsuario(@PathVariable String nome, Model model) {
         Usuario usuario = new Usuario();
         usuario.setNome(nome);
         model.addAttribute("usuario", usuario);
         UsuarioRepository.removeUsuario(usuario);
-        return this.listarUsuarios(model);
-//        return "editar-usuario"; // Nome da página de edição
+        List<Usuario> usuarios = UsuarioRepository.getUsuarios();
+        model.addAttribute("usuarios", usuarios);
+//        return this.listarUsuarios(model);
+        return "usuarios"; // Nome da página de edição
     }
 
 
